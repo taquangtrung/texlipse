@@ -43,7 +43,7 @@ import org.osgi.framework.BundleContext;
 
 /**
  * The main plugin class to be used in the desktop.
- * 
+ *
  * @author Kimmo Karlsson
  * @author Esa Seuranen
  * @author Taavi Hupponen
@@ -51,76 +51,76 @@ import org.osgi.framework.BundleContext;
  * @author Tor Arne Vestbø
  */
 public class TexlipsePlugin extends AbstractUIPlugin {
-    
+
     //Plugin_ID
     private static final String PLUGIN_ID = "net.sourceforge.texlipse";
     private static final String ICONS_PATH = "icons/";
-    
-    // Key to store custom templates. 
+
+    // Key to store custom templates.
     private static final String CUSTOM_TEMPLATES_TEX_KEY = "TeXTemplates";
     private static final String CUSTOM_TEMPLATES_BIBTEX_KEY = "BiBTeXTemplates";
-    
+
     // the shared instance.
     private static TexlipsePlugin plugin;
-    
+
     // resource bundle.
     private ResourceBundle resourceBundle;
-    
-    /// The template stores. 
+
+    /// The template stores.
     private TemplateStore texTemplateStore;
     private TemplateStore bibtexTemplateStore;
-    
-    // The context type registrys. 
+
+    // The context type registrys.
     private ContributionContextTypeRegistry texTypeRegistry = null;
     private ContributionContextTypeRegistry bibtexTypeRegistry = null;
-    
+
     // BibEditor presentation reconciler resources that are shared
     private BibColorProvider bibColor;
     private BibCodeScanner bibCodeScanner;
     private BibEntryScanner bibEntryScanner;
-    
+
     // used by the current project solving mechanism
     protected static IWorkbenchWindow currentWindow;
-    
+
     /**
      * Constructs a new TeXlipse plugin.
      */
     public TexlipsePlugin() {
         super();
         plugin = this;
-        
+
         // Force construction, so that editors from the last
         // eclipse session are caught by the change listener
         SelectedResourceManager.getDefault();
-        
+
         try {
             resourceBundle = ResourceBundle.getBundle(getClass().getPackage().getName() + ".TexlipsePluginResources");
         } catch (MissingResourceException x) {
             resourceBundle = null;
-        }        
+        }
     }
-    
+
     /**
      * This method is called upon plug-in activation
      */
     public void start(BundleContext context) throws Exception {
         super.start(context);
     }
-    
+
     /**
      * This method is called when the plug-in is stopped
      */
     public void stop(BundleContext context) throws Exception {
         super.stop(context);
     }
-    
+
     /**
      * Returns the shared instance.
      */
     public static TexlipsePlugin getDefault() {
         return plugin;
     }
-    
+
     /**
      * Returns the string from the plugin's resource bundle,
      * or <code>key</code> if not found.
@@ -133,7 +133,7 @@ public class TexlipsePlugin extends AbstractUIPlugin {
             return key;
         }
     }
-    
+
     /**
      * Return a value from the plugin's preferences.
      * @param key preference name
@@ -142,7 +142,7 @@ public class TexlipsePlugin extends AbstractUIPlugin {
     public static String getPreference(String key) {
         return getDefault().getPreferenceStore().getString(key);
     }
-    
+
     /**
      * Return a value from the plugin's preferences as an array.
      * This method always returns a non-null value.
@@ -156,7 +156,7 @@ public class TexlipsePlugin extends AbstractUIPlugin {
         }
         return g.split(StringListFieldEditor.SEPARATOR);
     }
-    
+
     /**
      * Return an image from the plugin's icons-directory.
      * @param name name of the icon
@@ -165,7 +165,7 @@ public class TexlipsePlugin extends AbstractUIPlugin {
     public static Image getImage(String name) {
         return getDefault().getCachedImage(name);
     }
-    
+
     /**
      * Cache the image if it is found.
      * @param key name of the image
@@ -194,7 +194,7 @@ public class TexlipsePlugin extends AbstractUIPlugin {
         getImageRegistry().put(key, g);
         return g;
     }
-    
+
     /**
      * Get the workbench image with the given path relative to
      * ICON_PATH.
@@ -204,18 +204,18 @@ public class TexlipsePlugin extends AbstractUIPlugin {
     public static ImageDescriptor getImageDescriptor(String relativePath){
         return imageDescriptorFromPlugin(PLUGIN_ID, ICONS_PATH + relativePath + ".gif");
     }
-    
+
     /**
      * Returns the plugin's resource bundle,
      */
     public ResourceBundle getResourceBundle() {
         return resourceBundle;
     }
-    
+
     /**
      * Returns the reference to the project that owns the
      * file currently open in editor.
-     * @return reference to the currently active project 
+     * @return reference to the currently active project
      */
     public static IProject getCurrentProject() {
         IWorkbenchPage page = TexlipsePlugin.getCurrentWorkbenchPage();
@@ -228,7 +228,7 @@ public class TexlipsePlugin extends AbstractUIPlugin {
             return null;
         }
         IEditorInput editorInput = actEditor.getEditorInput();
-        
+
         IFile aFile = (IFile)editorInput.getAdapter(IFile.class);
         if (aFile != null) return aFile.getProject();
         // If the first way does not gonna work...
@@ -236,16 +236,16 @@ public class TexlipsePlugin extends AbstractUIPlugin {
         IResource res = SelectedResourceManager.getDefault().getSelectedResource();
         return res == null ? null : res.getProject();
     }
-    
+
     /**
      * Returns the current workbench page.
-     * 
+     *
      * Used by getCurrentProject() and by gotoMarker().
      * @return the currently open WorkbenchPage or <code>null</code> if none
      */
     public static IWorkbenchPage getCurrentWorkbenchPage() {
         IWorkbench workbench = getDefault().getWorkbench();
-        
+
         IWorkbenchWindow window = workbench.getActiveWorkbenchWindow();
         if (window == null) {
             Display display = workbench.getDisplay();
@@ -255,41 +255,41 @@ public class TexlipsePlugin extends AbstractUIPlugin {
                 }});
             window = currentWindow;
         }
-        
+
         return window.getActivePage();
     }
-    
+
     /**
      * Returns the name of the plugin.
-     * 
+     *
      * Used by project creation wizard.
      * @return unique id of this plugin
      */
     public static String getPluginId() {
         return getDefault().getBundle().getSymbolicName();
-    }       
-    
+    }
+
     /**
      * Create ae error-level status object out of textual message.
-     * These status-objects are needed when creating new CoreExceptions.  
+     * These status-objects are needed when creating new CoreExceptions.
      * Used by e.g. the project creation wizard.
      * @param msg error message to display in error log
      * @param t exception
-     * @return new error-level status message 
+     * @return new error-level status message
      */
     public static IStatus stat(String msg, Throwable t) {
         return new Status(IStatus.ERROR, getPluginId(), IStatus.ERROR, msg, t);
     }
-    
+
     /**
      * This is equivalent to calling <code>stat(msg, null)</code>.
      * @param msg error message to display in error log
-     * @return new error-level status message 
+     * @return new error-level status message
      */
     public static IStatus stat(String msg) {
         return stat(msg, null);
     }
-    
+
     /**
      * Display a message in the Eclipse's Error Log.
      * This is equivalent to calling <code>log(msg, t, IStatus.ERROR)</code>.
@@ -299,7 +299,7 @@ public class TexlipsePlugin extends AbstractUIPlugin {
     public static void log(String msg, Throwable t) {
         log(msg, t, IStatus.ERROR);
     }
-    
+
     /**
      * Display a message in the Eclipse's Error Log.
      * Used by e.g. the project creation wizard.
@@ -311,10 +311,10 @@ public class TexlipsePlugin extends AbstractUIPlugin {
         IStatus stat = new Status(level, getPluginId(), level, msg, t);
         getDefault().getLog().log(stat);
     }
-    
+
     /**
      * Returns this plugin's TeX template store.
-     * 
+     *
      * @return the template store of this plug-in instance
      */
     public TemplateStore getTexTemplateStore() {
@@ -332,10 +332,10 @@ public class TexlipsePlugin extends AbstractUIPlugin {
         }
         return texTemplateStore;
     }
-    
+
     /**
      * Returns this plug-in's BiBTeX template store.
-     * 
+     *
      * @return the template store of this plug-in instance
      */
     public TemplateStore getBibTemplateStore() {
@@ -353,10 +353,10 @@ public class TexlipsePlugin extends AbstractUIPlugin {
         }
         return bibtexTemplateStore;
     }
-    
+
     /**
      * Returns this plugin's LaTeX context type registry.
-     * 
+     *
      * @return the context type registry for this plug-in instance
      */
     public ContextTypeRegistry getTexContextTypeRegistry() {
@@ -368,10 +368,10 @@ public class TexlipsePlugin extends AbstractUIPlugin {
         }
         return texTypeRegistry;
     }
-    
+
     /**
      * Returns this plugin's BibTeX context type registry.
-     * 
+     *
      * @return the context type registry for this plug-in instance
      */
     public ContextTypeRegistry getBibContextTypeRegistry() {
@@ -382,7 +382,7 @@ public class TexlipsePlugin extends AbstractUIPlugin {
         }
         return bibtexTypeRegistry;
     }
-    
+
     /**
      * @return The BibTeX editor color provider.
      */

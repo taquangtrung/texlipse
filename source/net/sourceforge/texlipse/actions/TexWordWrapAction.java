@@ -27,7 +27,7 @@ import org.eclipse.ui.IEditorPart;
 
 /**
  * Listens for word wrap toggle -actions, toggling wrap on or off.
- * 
+ *
  * @author Laura Takkinen
  * @author Oskar Ojala
  */
@@ -36,13 +36,17 @@ public class TexWordWrapAction implements IEditorActionDelegate, IActionDelegate
     private boolean off;
 
     public TexWordWrapAction() {
-        this.off = !TexlipsePlugin.getDefault().getPreferenceStore().getBoolean(TexlipseProperties.WORDWRAP_DEFAULT);
-        TexlipsePlugin.getDefault().getPreferenceStore().addPropertyChangeListener(new WrapPropertyChangeListener());
+        this.off = !TexlipsePlugin.getDefault()
+        						  .getPreferenceStore()
+        						  .getBoolean(TexlipseProperties.WORDWRAP_DEFAULT);
+        TexlipsePlugin.getDefault()
+        			  .getPreferenceStore()
+        			  .addPropertyChangeListener(new WrapPropertyChangeListener());
     }
 
     /**
      * Listens wrap type changes
-     * 
+     *
      * @author Laura Takkinen
      */
     private class WrapPropertyChangeListener implements IPropertyChangeListener {
@@ -52,11 +56,13 @@ public class TexWordWrapAction implements IEditorActionDelegate, IActionDelegate
          * button is checked.
          */
         public void propertyChange(PropertyChangeEvent event) {
-            String ev = event.getProperty();
-            if (ev.equals("wrapType")) {
-                if (!off) {
-                    setType();
-                }
+            off = !TexlipsePlugin.getDefault()
+					  .getPreferenceStore()
+					  .getBoolean(TexlipseProperties.WORDWRAP_DEFAULT);
+            if (!off) {
+                String ev = event.getProperty();
+                if (ev.equals("wrapType"))
+                	setType();
             }
         }
     }
