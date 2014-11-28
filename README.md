@@ -1,7 +1,7 @@
 TeXlipse
 ========
 
-A cloned of TeXlipse project (texlipse.sourceforge.net)
+A cloned of TeXlipse project (http://texlipse.sourceforge.net)
 
 All credit goes to TeXlipse creators (http://texlipse.sourceforge.net/manual/intro.html)
 
