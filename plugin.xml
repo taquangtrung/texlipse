@@ -936,7 +936,6 @@ ${cursor}
          </action>
          <action
                class="net.sourceforge.texlipse.actions.ForceRebuildAction"
-               definitionId="net.sourceforge.texlipse.commands.forceBuild"
                icon="icons/build_exec.gif"
                id="net.sourceforge.texlipse.actions.ForceRebuild"
                label="Force build"
@@ -968,13 +967,8 @@ ${cursor}
             id="net.sourceforge.texlipse.commands.saveAsTemplate"/>
       <command
             categoryId="net.sourceforge.texlipse.latexEditingCategory"
-            id="net.sourceforge.texlipse.commands.partialBuild"
-            name="Partial Build">
-      </command>
-      <command
-            categoryId="net.sourceforge.texlipse.latexEditingCategory"
-            name="Force Build"
-            id="net.sourceforge.texlipse.commands.forceBuild"/>
+            name="Partial Build"
+            id="net.sourceforge.texlipse.commands.partialBuild"/>
       <command
             categoryId="net.sourceforge.texlipse.latexEditingCategory"
             name="Wrap text"
@@ -1085,13 +1079,7 @@ ${cursor}
             commandId="net.sourceforge.texlipse.commands.GotoMatchingBracket"
             contextId="net.sourceforge.texlipse.texEditorScope"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
-            sequence="M1+M2+P"/>
-      <key
-            commandId="net.sourceforge.texlipse.commands.forceBuild"
-            contextId="net.sourceforge.texlipse.texEditorScope"
-            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
-            sequence="M1+F9">
-      </key>            
+            sequence="M1+M2+P"/>            
     </extension>
    <extension
          id="builderproblem"
