@@ -50,23 +50,23 @@ import org.eclipse.swt.widgets.Text;
 
 /**
  * Prefs-page on the project creation wizard.
- * 
+ *
  * @author kpkarlss
  */
 public class TexlipseProjectCreationWizardPage extends TexlipseWizardPage {
 
     // textfield for project name
     private Text projectNameField;
-    
+
     // project location, if not in workspace
     private Text projectLocationField;
-    
+
     // textfield for language
     private Text languageField;
-    
+
     // textfield for template preview
     private Text descriptionField;
-    
+
     // template chooser
 	private List templateList;
 
@@ -79,7 +79,7 @@ public class TexlipseProjectCreationWizardPage extends TexlipseWizardPage {
     private String workspacePath;
 
     /**
-     * 
+     *
      * @param attributes Project attributes
      */
     public TexlipseProjectCreationWizardPage(TexlipseProjectAttributes attributes) {
@@ -92,10 +92,10 @@ public class TexlipseProjectCreationWizardPage extends TexlipseWizardPage {
      * @return number of components using a status message
      */
     public void createComponents(Composite parent) {
-        
+
         // path to the workspace root directory
         workspacePath = ResourcesPlugin.getWorkspace().getRoot().getLocation().addTrailingSeparator().toOSString();
-        
+
         createProjectNameControl(parent);
         addSpacer(parent, 2);
         createProjectLocationControl(parent);
@@ -105,7 +105,7 @@ public class TexlipseProjectCreationWizardPage extends TexlipseWizardPage {
         addSpacer(parent, 2);
         createLabels(parent);
         createTemplateControl(parent);
-        
+
         //this updates the template description area and the template type label
     	updateEntries();
     }
@@ -163,18 +163,18 @@ public class TexlipseProjectCreationWizardPage extends TexlipseWizardPage {
                 }
             }
         });
-        
+
         // add language label
         final Label mainLabel = new Label(c, SWT.LEFT);
         mainLabel.setText(TexlipsePlugin.getResourceString("propertiesLanguage"));
         mainLabel.setToolTipText(TexlipsePlugin.getResourceString("propertiesLanguageDescription"));
         mainLabel.setLayoutData(new GridData());
-        
+
         // add text field
         languageField = new Text(c, SWT.SINGLE | SWT.BORDER);
         languageField.setText(attributes.getLanguageCode());
         languageField.setToolTipText(TexlipsePlugin.getResourceString("propertiesLanguageDescription"));
-        languageField.setLayoutData(new GridData());     
+        languageField.setLayoutData(new GridData());
         new AutoCompleteField(languageField, new TextContentAdapter(), Locale.getISOLanguages());
         languageField.setTextLimit(2);
         languageField.addModifyListener(new ModifyListener() {
@@ -208,7 +208,7 @@ public class TexlipseProjectCreationWizardPage extends TexlipseWizardPage {
         GridData lgd = new GridData(GridData.FILL_HORIZONTAL);
         lgd.horizontalSpan = 2;
         group.setLayoutData(lgd);
-        
+
         // add radioButtons
         final Button createLocalProjectButton = new Button(group, SWT.RADIO | SWT.LEFT);
         createLocalProjectButton.setLayoutData(new GridData());
@@ -240,19 +240,19 @@ public class TexlipseProjectCreationWizardPage extends TexlipseWizardPage {
                 projectLocationField.setFocus();
                 projectLocationField.setText("");
             }});
-        
+
         Composite composite = new Composite(group, SWT.NULL);
         composite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
         GridLayout cgl = new GridLayout();
         cgl.numColumns = 3;
         composite.setLayout(cgl);
-        
+
         // add location label
         Label label = new Label(composite, SWT.LEFT);
         label.setText(TexlipsePlugin.getResourceString("projectWizardLocationLabel"));
         label.setLayoutData(new GridData());
         label.setEnabled(false);
-        
+
         // add location field
         projectLocationField = new Text(composite, SWT.SINGLE | SWT.BORDER);
         projectLocationField.setText(workspacePath);
@@ -264,7 +264,7 @@ public class TexlipseProjectCreationWizardPage extends TexlipseWizardPage {
                     validateProjectLocation(projectLocationField.getText());
                 }
             }});
-        
+
         Button browseLocationButton = new Button(composite, SWT.PUSH);
         browseLocationButton.setText(TexlipsePlugin.getResourceString("openBrowse"));
         browseLocationButton.setLayoutData(new GridData());
@@ -306,30 +306,30 @@ public class TexlipseProjectCreationWizardPage extends TexlipseWizardPage {
         }
         updateStatus(status, projectLocationField);
     }
-    
+
     /**
-     * Creates labels for the template list and the description text area 
+     * Creates labels for the template list and the description text area
      * to the given Composite object
-     * 
+     *
      * @param composite the parent container
      */
     private void createLabels(Composite composite) {
-    	
+
         // add label for the list of templates
         Label label = new Label(composite, SWT.LEFT);
         label.setText(TexlipsePlugin.getResourceString("projectWizardTemplateListLabel"));
         label.setToolTipText(TexlipsePlugin.getResourceString("projectWizardTemplateListTooltip"));
         label.setLayoutData(new GridData());
-    	
+
         // add composite containing a label for the description area and templatetype (system/user) label
         Composite c = new Composite(composite, SWT.NONE);
         c.setLayout(new GridLayout(2,false));
         c.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-        
+
         // add label for the description area
         Label l = new Label(c, SWT.LEFT);
         l.setText(TexlipsePlugin.getResourceString("projectWizardTemplateDescriptionLabel"));
-        l.setToolTipText(TexlipsePlugin.getResourceString("projectWizardTemplateDescriptionTooltip"));        
+        l.setToolTipText(TexlipsePlugin.getResourceString("projectWizardTemplateDescriptionTooltip"));
     	l.setLayoutData(new GridData());
 
         // add label for presenting the type of the selected template
@@ -338,12 +338,12 @@ public class TexlipseProjectCreationWizardPage extends TexlipseWizardPage {
     	typeLabel.setToolTipText(TexlipsePlugin.getResourceString("projectWizardTemplateTypeTooltip"));
         typeLabel.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
     }
-    
-    
+
+
     /**
      * Creates a list element containing available templates (system and user)
      * and a text area next to it for showing description about the selected template
-     * 
+     *
      * @param composite the parent container
      */
     private void createTemplateControl(Composite composite) {
@@ -354,15 +354,17 @@ public class TexlipseProjectCreationWizardPage extends TexlipseWizardPage {
         templateList.setToolTipText(TexlipsePlugin.getResourceString("projectWizardTemplateTooltip"));
         templateList.addSelectionListener(new SelectionAdapter() {
             public void widgetSelected(SelectionEvent e) {
-            	attributes.setTemplate(templateList.getSelection()[0]);
+            	String templateName = templateList.getSelection()[0];
+            	attributes.setTemplate(templateName);
             	updateEntries();
+            	updateProjectAttributes(templateName);
             }});
-        
+
         templateList.setSelection(0);
         // this has to be done, because setSelection() doesn't generate an event
         attributes.setTemplate(templateList.getItem(0));
 
-        
+
         // add TextField for the selected template's description
         descriptionField = new Text(composite, SWT.MULTI | SWT.BORDER);
         descriptionField.setToolTipText(TexlipsePlugin.getResourceString("projectWizardTemplateDescriptionTooltip"));
@@ -371,18 +373,26 @@ public class TexlipseProjectCreationWizardPage extends TexlipseWizardPage {
     }
 
     /**
-     * Updates the description text area and template type label 
-     * 
+     * Updates the description text area and template type label
+     *
      */
     private void updateEntries(){
     	typeLabel.setText(templateType(attributes.getTemplate()));
     	readProjectTemplateDescription(attributes.getTemplate());
     }
 
+    private void updateProjectAttributes(String template) {
+    	// use empty file name as default when a Blank template is selected
+    	if (template.equals("Blank")) {
+    		attributes.setSourceFile("");
+    		attributes.setOutputFile("");
+    	}
+    }
+
     /**
      * Returns the type of the given template.
-     * 
-     * @param template name of a template (should be the selected item from 
+     *
+     * @param template name of a template (should be the selected item from
      *   the list element containing all available templates).
      * @return Either "User defined template" or "System defined template" depending
      *   wether the given template is found in plugins templates directory (former if not,
@@ -401,7 +411,7 @@ public class TexlipseProjectCreationWizardPage extends TexlipseWizardPage {
      * starting with "%%" (excluding "%%") to the description text area.
      * Reading is ended, when a line not starting wiht "%%" is encountered
      * or the end of file is reached.
-     *  
+     *
      * @param template name of a template
      */
     private void readProjectTemplateDescription(String template) {
@@ -409,27 +419,27 @@ public class TexlipseProjectCreationWizardPage extends TexlipseWizardPage {
         URL templateUrl = TexlipsePlugin.getDefault().getBundle().getEntry("templates" + File.separator + template + ".tex");
         String userTemplate = null;
     	if (templateUrl==null){
-    		//if not, then the template is user defined 
+    		//if not, then the template is user defined
     		File userTemplateFolder = ProjectTemplateManager.getUserTemplateFolder();
     		userTemplate = userTemplateFolder.getAbsolutePath()+File.separator+template+".tex";
     	}
-        
+
     	try {
     		String line = null;
-    		
+
 			BufferedReader r;
 			if(templateUrl!=null) r = new BufferedReader(new InputStreamReader(templateUrl.openStream()));
 			else r = new BufferedReader(new FileReader(userTemplate));
 			StringBuffer sb = new StringBuffer();
-			
+
 			while ((line = r.readLine()) != null) {
 				if(!line.startsWith("%%")) break;
 				if(line.length()>2) sb.append(line.substring(2));
 				sb.append('\n');
 			}
-			
+
 			r.close();
-			sb.toString();       
+			sb.toString();
 	        descriptionField.setText(sb.toString());
     	} catch (IOException e) {
     		TexlipsePlugin.log("Reading a description of template file:", e);
@@ -452,10 +462,10 @@ public class TexlipseProjectCreationWizardPage extends TexlipseWizardPage {
      * @param text
      */
     private void validateProjectName(String text) {
-        
+
         IWorkspace workspace = ResourcesPlugin.getWorkspace();
         IStatus status = workspace.validateName(text, IResource.PROJECT);
-        
+
         if (status.isOK()) {
             if (workspace.getRoot().getProject(text).exists()) {
                 status = createStatus(IStatus.ERROR,
