@@ -37,7 +37,7 @@ import org.eclipse.ui.ide.IDE;
 /**
  * Operation to add latex nature to the project.
  * The main file is also created here, using the appropriate template.
- * 
+ *
  * @author Kimmo Karlsson
  */
 public class TexlipseProjectCreationOperation implements IRunnableWithProgress {
@@ -54,9 +54,9 @@ public class TexlipseProjectCreationOperation implements IRunnableWithProgress {
     }
 
     /**
-     * Run the project creation task. This method is invoked by the Eclipse IDE after the 
+     * Run the project creation task. This method is invoked by the Eclipse IDE after the
      * Project Creation Wizard is finished.
-     * 
+     *
      * @param pMon progress monitor
      * @throws InvocationTargetException
      * @throws InterruptedException
@@ -65,11 +65,11 @@ public class TexlipseProjectCreationOperation implements IRunnableWithProgress {
            throws InvocationTargetException, InterruptedException {
 
         IProgressMonitor monitor = pMon;
-        // this null-check is recommended by developers of other plugins 
+        // this null-check is recommended by developers of other plugins
         if (pMon == null) {
             monitor = new NullProgressMonitor();
         }
-        
+
         try {
 
             monitor.beginTask(TexlipsePlugin.getResourceString("projectWizardProgressCreating"), 12);
@@ -85,7 +85,7 @@ public class TexlipseProjectCreationOperation implements IRunnableWithProgress {
             monitor.worked(1);
             createProjectDirs(project, monitor);
             monitor.worked(1);
-            
+
             TexlipseProperties.setProjectProperty(project, TexlipseProperties.LANGUAGE_PROPERTY, attributes.getLanguageCode()+"");
             TexlipseProperties.setProjectProperty(project, TexlipseProperties.MARK_OUTPUT_DERIVED_PROPERTY, "true");
             TexlipseProperties.setProjectProperty(project, TexlipseProperties.MARK_TEMP_DERIVED_PROPERTY, "true");
@@ -97,19 +97,21 @@ public class TexlipseProjectCreationOperation implements IRunnableWithProgress {
             TexlipsePlugin.getDefault().getPreferenceStore().setValue(TexlipseProperties.OUTPUT_FORMAT, attributes.getOutputFormat());
             TexlipsePlugin.getDefault().getPreferenceStore().setValue(TexlipseProperties.BUILDER_NUMBER, attributes.getBuilder());
             monitor.worked(1);
-            
+
             createMainFile(project, monitor);
             monitor.worked(1);
-            
+
             monitor.subTask(TexlipsePlugin.getResourceString("projectWizardProgressSettingsFile"));
             TexlipseProperties.saveProjectProperties(project);
             monitor.worked(1);
-            
-            IDE.openEditor(TexlipsePlugin.getCurrentWorkbenchPage(),
-                    TexlipseProperties.getProjectSourceFile(project));
-            
+
+            IFile file = TexlipseProperties.getProjectSourceFile(project);
+            if (file != null) {
+            	IDE.openEditor(TexlipsePlugin.getCurrentWorkbenchPage(), file);
+            }
+
             monitor.worked(1);
-            
+
         } catch (CoreException e) {
             TexlipsePlugin.log(TexlipsePlugin.getResourceString("projectWizardCreateError"), e);
         } finally {
@@ -121,7 +123,7 @@ public class TexlipseProjectCreationOperation implements IRunnableWithProgress {
      * Create the project directory.
      * If the user has specified an external project location,
      * the project is created with a custom description for the location.
-     * 
+     *
      * @param project project
      * @param monitor progress monitor
      * @throws CoreException
@@ -130,7 +132,7 @@ public class TexlipseProjectCreationOperation implements IRunnableWithProgress {
             throws CoreException {
 
         monitor.subTask(TexlipsePlugin.getResourceString("projectWizardProgressDirectory"));
-        
+
         if (!project.exists()) {
             if (attributes.getProjectLocation() != null) {
                 IProjectDescription desc = project.getWorkspace().newProjectDescription(project.getName());
@@ -153,7 +155,7 @@ public class TexlipseProjectCreationOperation implements IRunnableWithProgress {
 
     /**
      * Add a nature to the project.
-     * 
+     *
      * @param project project
      * @param monitor progress monitor
      * @throws CoreException
@@ -171,17 +173,17 @@ public class TexlipseProjectCreationOperation implements IRunnableWithProgress {
                 return;
             }
         }
-        
+
         String[] newNatures = new String[natures.length + 1];
         System.arraycopy(natures, 0, newNatures, 1, natures.length);
         newNatures[0] = TexlipseNature.NATURE_ID;
         desc.setNatureIds(newNatures);
         project.setDescription(desc, monitor);
     }
-    
+
     /**
      * Create project's (sub)directory structure.
-     *  
+     *
      * @param project project
      * @param monitor progress monitor
      * @throws CoreException
@@ -190,7 +192,7 @@ public class TexlipseProjectCreationOperation implements IRunnableWithProgress {
             throws CoreException {
 
         monitor.subTask(TexlipsePlugin.getResourceString("projectWizardProgressSubdirs"));
-        
+
         String outputDir = attributes.getOutputDir();
         String sourceDir = attributes.getSourceDir();
         String tempDir = attributes.getTempDir();
@@ -203,7 +205,7 @@ public class TexlipseProjectCreationOperation implements IRunnableWithProgress {
         TexlipseProperties.setProjectProperty(project, TexlipseProperties.SOURCE_DIR_PROPERTY, sourceDir);
         TexlipseProperties.setProjectProperty(project, TexlipseProperties.TEMP_DIR_PROPERTY, tempDir);
     }
-    
+
     /**
      * Create a subdirectory to the given project's directory.
      * @param project project
@@ -221,10 +223,10 @@ public class TexlipseProjectCreationOperation implements IRunnableWithProgress {
             }
         }
     }
-    
+
     /**
      * Create main file of the project from template.
-     * 
+     *
      * @param project project
      * @param monitor progress monitor
      * @throws CoreException
@@ -235,25 +237,27 @@ public class TexlipseProjectCreationOperation implements IRunnableWithProgress {
         monitor.subTask(TexlipsePlugin.getResourceString("projectWizardProgressFile"));
 
         String name = attributes.getSourceFile();
-        if (name == null || name.length() == 0) {
+        if (name == null) {
             throw new CoreException(TexlipsePlugin.stat("Null main file name"));
         }
 
         TexlipseProperties.setProjectProperty(project, TexlipseProperties.MAINFILE_PROPERTY, name);
-        
-        byte[] template = getTemplate(attributes.getTemplate());
-        if (template == null) {
-            template = new byte[0];
+
+        if (!name.trim().isEmpty()) {
+	        byte[] template = getTemplate(attributes.getTemplate());
+	        if (template == null) {
+	            template = new byte[0];
+	        }
+	        ByteArrayInputStream stream = new ByteArrayInputStream(template);
+
+	        IFile mainFile = TexlipseProperties.getProjectSourceFile(project);
+	        mainFile.create(stream, true, monitor);
         }
-        ByteArrayInputStream stream = new ByteArrayInputStream(template);
-        
-        IFile mainFile = TexlipseProperties.getProjectSourceFile(project);
-        mainFile.create(stream, true, monitor);
     }
-    
+
     /**
      * Return the contents of a template.
-     * 
+     *
      * @param name template name without the extension
      * @return contents of the template
      */
@@ -261,9 +265,9 @@ public class TexlipseProjectCreationOperation implements IRunnableWithProgress {
 
         String[] userNames = ProjectTemplateManager.loadUserTemplateNames();
         for (int i = 0; i < userNames.length; i++) {
-        
+
             if (userNames[i].equals(name)) {
-                
+
                 byte[] content = null;
                 try {
                     content = ProjectTemplateManager.readUserTemplate(name);
@@ -274,12 +278,12 @@ public class TexlipseProjectCreationOperation implements IRunnableWithProgress {
                 }
             }
         }
-        
+
         String[] systemNames = ProjectTemplateManager.loadTemplateNames();
         for (int i = 0; i < systemNames.length; i++) {
-            
+
             if (systemNames[i].equals(name)) {
-                
+
                 byte[] content = null;
                 try {
                     content = ProjectTemplateManager.readSystemTemplate(name);
@@ -290,7 +294,7 @@ public class TexlipseProjectCreationOperation implements IRunnableWithProgress {
                 }
             }
         }
-        
+
         return null;
     }
 }

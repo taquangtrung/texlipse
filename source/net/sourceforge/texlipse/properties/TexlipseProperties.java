@@ -37,11 +37,11 @@ import org.eclipse.ui.PlatformUI;
 
 /**
  * Names and helper methods for project properties.
- * 
+ *
  * @author Kimmo Karlsson
  */
 public class TexlipseProperties {
-	
+
     // properties
     public static final String PACKAGE_NAME = TexlipsePlugin.class.getPackage().getName();
     public static final String LATEX_PROJECT_SETTINGS_FILE = ".texlipse";
@@ -58,7 +58,7 @@ public class TexlipseProperties {
     public static final String PARTIAL_BUILD_FILE = "partialFile";
     public static final String BIBFILES_CHANGED = "bibFilesChanged";
     public static final String FORCED_REBUILD = "forcedRebuild";
-    
+
     public static final String OUTPUT_DIR_PROPERTY = "outputDir";
     public static final String SOURCE_DIR_PROPERTY = "srcDir";
     public static final String TEMP_DIR_PROPERTY = "tempDir";
@@ -67,7 +67,7 @@ public class TexlipseProperties {
     public static final String MARK_TEMP_DERIVED_PROPERTY = "markTmpDer";
     public static final String LANGUAGE_PROPERTY = "langSpell";
     public static final String MAKEINDEX_STYLEFILE_PROPERTY = "makeIndSty";
-    
+
     public static final String BIBCONTAINER_PROPERTY = "bibContainer";
     public static final String LABELCONTAINER_PROPERTY = "labelContainer";
     public static final String COMCONTAINER_PROPERTY = "commandContainer";
@@ -84,13 +84,13 @@ public class TexlipseProperties {
     public static final String TEX_COMPLETION = "texCompletion";
     public static final String TEX_COMPLETION_DELAY = "texDelay";
 
-    public static final String TEX_ITEM_COMPLETION = "texItemCompletion"; 
-    
+    public static final String TEX_ITEM_COMPLETION = "texItemCompletion";
+
     public static final String AUTO_PARSING = "autoParsing";
     public static final String AUTO_PARSING_DELAY = "autoParsingDelay";
-    
+
     public static final String SECTION_CHECK = "sectionCheck";
-    
+
     public static final String BIB_COMPLETION = "bibCompletion";
     public static final String BIB_COMPLETION_DELAY = "bibDelay";
     public static final String BIB_FREQSORT = "bibFreqSort";
@@ -102,32 +102,32 @@ public class TexlipseProperties {
     public static final String INDENTATION_LEVEL = "indentLevel";
     public static final String INDENTATION_TABS = "indentTabs";
     public static final String INDENTATION_ENVS = "indentEnvs";
-     
+
     public static final String WORDWRAP_TYPE = "wrapType";
     public static final String WORDWRAP_LENGTH = "lineLength";
     public static final String WORDWRAP_TYPE_NONE = "none";
     public static final String WORDWRAP_TYPE_SOFT = "soft";
     public static final String WORDWRAP_TYPE_HARD = "hard";
     public static final String WORDWRAP_DEFAULT = "wrapDefault";
-    
+
 //  B----------------------------------- mmaus
     public static final String SMART_KEY_ENABLE = "ske";
     public static final String STYLE_COMPLETION_SETTINGS = "styleCompletionSet";
 //  E----------------------------------- mmaus
-    
+
     public static final String SMART_BACKSPACE = "smartBackspace";
     //public static final String SMART_QUOTES = "smartQuotes";
     //public static final String SMART_PARENS = "smartParens";
     public static final String SMART_LDOTS = "smartLdots";
-    
+
     public static final String SMART_PARENS = "texBracketCompletion";
     public static final String TEX_BRACKET_COMLETION_VALUE = "true";
-    
+
     public static final String SMART_QUOTES = "texReplaceQuotes";
     public static final String TEX_REPLACE_QUOTES_VALUE = "true";
-    
+
     public static final String TEX_EDITOR_ANNOTATATIONS = "textEditorAnnotations";
-    
+
     public static final String CODE_FOLDING = "codeFolding";
     public static final String CODE_FOLDING_PREAMBLE = "codeFoldingPreamble";
     public static final String CODE_FOLDING_PART = "codeFoldingPart";
@@ -137,7 +137,7 @@ public class TexlipseProperties {
     public static final String CODE_FOLDING_SUBSUBSECTION = "codeFoldingSubSubSection";
     public static final String CODE_FOLDING_PARAGRAPH = "codeFoldingParagraph";
     public static final String CODE_FOLDING_ENVS = "codeFoldingEnvs";
-    
+
     public static final String OUTLINE_PREAMBLE = "outlinePreamble";
     public static final String OUTLINE_PART = "outlinePart";
     public static final String OUTLINE_CHAPTER = "outlineChapter";
@@ -146,14 +146,14 @@ public class TexlipseProperties {
     public static final String OUTLINE_SUBSUBSECTION = "outlineSubSubSection";
     public static final String OUTLINE_PARAGRAPH = "outlineParagraph";
     public static final String OUTLINE_ENVS = "outlineEnvs";
-    
+
     public static final String BUILDER_NUMBER = "builderNum";
     public static final String BUILDER_CONSOLE_OUTPUT = "builderConsole";
     public static final String BUILD_BEFORE_VIEW = "buildBeforeView";
     public static final String BUILDER_RETURN_FOCUS = "returnFocusOnPreivew";
     public static final String BUILDER_PARSE_AUX_FILES = "builderParseAuxFiles";
     public static final String BUILDER_FORCE_RETURN_FOCUS = "forceReturnFocusOnInverseSearch";
-    
+
     public static final String OUTPUT_FORMAT = "outputFormat";
     public static final String OUTPUT_FORMAT_AUX = "aux";
     public static final String INPUT_FORMAT_BIB = "bib";
@@ -176,14 +176,14 @@ public class TexlipseProperties {
     // attribute for session properties to hold the viewer process object
     public static final String SESSION_ATTRIBUTE_VIEWER = "active.viewer";
     public static final String SESSION_PROJECT_FULLOUTLINE = "project.fullTexParser";
-    
+
     public static final String ECLIPSE_BUILDIN_SPELLCHECKER = "eclipseBuildInSpellChecker";
     public static final String SPELLCHECKER_DICT_DIR = "spellcheckerDictDir";
     public static final String SPELLCHECKER_CUSTOM_DICT_DIR = "spellcheckerCustomDictDir";
-    public static final String SPELLCHECKER_IGNORE_COMMENTS = "spellcheckerIgnoreComments"; 
-    public static final String SPELLCHECKER_IGNORE_MATH = "spellcheckerIgnoreMath"; 
-    public static final String SPELLCHECKER_IGNORE_MIXED_CASE = "spellcheckerIgnoreMixedCase"; 
-    
+    public static final String SPELLCHECKER_IGNORE_COMMENTS = "spellcheckerIgnoreComments";
+    public static final String SPELLCHECKER_IGNORE_MATH = "spellcheckerIgnoreMath";
+    public static final String SPELLCHECKER_IGNORE_MIXED_CASE = "spellcheckerIgnoreMixedCase";
+
     /**
        * A named preference that controls whether bracket matching highlighting is turned on or off.
        * <p>
@@ -196,22 +196,22 @@ public class TexlipseProperties {
        * <p>
        * Value is of type <code>String</code>. A RGB color value encoded as a string using class <code>PreferenceConverter</code>
        * </p>
-       * 
+       *
        * @see org.eclipse.jface.resource.StringConverter
        * @see org.eclipse.jface.preference.PreferenceConverter
        */
     public final static String MATCHING_BRACKETS_COLOR = "matchingBracketsColor"; //$NON-NLS-1$
 
-    
+
     /**
      * Returns the contents of a file in the project.
-     * 
+     *
      * @param resource The file resource to read from
      * @return Contents of the given file in string form or null if the given resource wasn't a file
      * @throws IOException if an error occurs
      */
     public static String getFileContents(IResource resource) throws IOException {
-        
+
 //       IFolder srcDir = getProjectSourceDir(project);
 //       IFile file = srcDir.getFile(filename);
        if (resource.getType() != IResource.FILE)
@@ -221,12 +221,12 @@ public class TexlipseProperties {
        FileInputStream in = new FileInputStream(f);
        ByteArrayOutputStream out = new ByteArrayOutputStream();
        byte[] buff = new byte[4096];
-       
+
        int len = 0;
        while ((len = in.read(buff)) == buff.length) {
            out.write(buff);
        }
-       
+
        if (len > 0) {
            out.write(buff, 0, len);
        }
@@ -244,59 +244,59 @@ public class TexlipseProperties {
        out.close();
        return contents;
     }
-    
+
     /**
      * Returns an array of file handles to all files in project's source
      * directory, which have one of the following extensions:
      * tex,ltx,bib,idx.
      * This method recursively checks all subdirectories.
-     * 
+     *
      * @param project the current project
      * @return an array of file handles
      */
     public static IResource[] getAllProjectFiles(IProject project) {
-        
+
         IContainer sourceDir = getProjectSourceDir(project);
         return (IResource[]) getAllMemberFiles(sourceDir, new String[] { "tex", "ltx", "bib", "idx" }).toArray(new IResource[0]);
     }
-    
+
     /**
      * This method returns a list of files under the given directory
      * or its subdirectories. The directories themselves are not returned.
-     * 
+     *
      * @param dir a directory
      * @return list of IResource objects representing the files under
      *         the given directory and its subdirectories
      */
     public static List<IResource> getAllMemberFiles(IContainer dir, String[] exts) {
-        
+
         List<IResource> list = new ArrayList<IResource>();
-        
+
         IResource[] arr = null;
         try {
             arr = dir.members();
         } catch (CoreException e) {
         }
-        
+
         for (int i = 0; arr != null && i < arr.length; i++) {
-        	
+
             if (arr[i].getType() == IResource.FOLDER) {
                 list.addAll(getAllMemberFiles((IFolder)arr[i], exts));
             } else {
-            	
+
             	for (int j = 0; j < exts.length; j++) {
             		if (exts[j].equals(arr[i].getFileExtension())) {
                         list.add(arr[i]);
                         break;
             		}
             	}
-            	
+
             }
         }
-        
+
         return list;
     }
-    
+
     /**
      * Returns the name of the output file, if partial building is turned on, the name of
      * the partial build file will be returned.
@@ -318,7 +318,7 @@ public class TexlipseProperties {
         }
         return outputFileName;
     }
-    
+
     /**
      * Find the project's main source file. The file may or may not exist.
      * @param project the current project
@@ -326,17 +326,21 @@ public class TexlipseProperties {
      */
     public static IFile getProjectSourceFile(IProject project) {
     	//IContainer folder = getProjectSourceDir(project);
-        String dir = TexlipseProperties.getProjectProperty(project, TexlipseProperties.SOURCE_DIR_PROPERTY);
-        String mainFile = getProjectProperty(project, MAINFILE_PROPERTY);
-        if (mainFile != null) {
-            if (dir != null && dir.length() > 0) {
-                return project.getFolder(dir).getFile(mainFile);
+    	try {
+            String dir = TexlipseProperties.getProjectProperty(project, TexlipseProperties.SOURCE_DIR_PROPERTY);
+            String mainFile = getProjectProperty(project, MAINFILE_PROPERTY);
+            if (mainFile != null) {
+                if (dir != null && dir.length() > 0) {
+                    return project.getFolder(dir).getFile(mainFile);
+                }
+                return project.getFile(mainFile);
             }
-            return project.getFile(mainFile);
-        }
-        return null;
+            return null;
+		} catch (Exception e) {
+			return null;
+		}
     }
-    
+
     /**
      * Find the project's source directory.
      * @param project the current project
@@ -350,7 +354,7 @@ public class TexlipseProperties {
         }
         else return project;
     }
-    
+
     /**
      * Find the project's output file. The file may or may not exist. This is independent
      * of partial build turned on or off.
@@ -364,7 +368,7 @@ public class TexlipseProperties {
     	}
         return folder.getFile(getProjectProperty(project, OUTPUTFILE_PROPERTY));
     }
-    
+
     /**
      * Find the project's output directory.
      * @param project the current project
@@ -378,7 +382,7 @@ public class TexlipseProperties {
         }
         return null;
     }
-    
+
     /**
      * Find the project's temporary files directory.
      * @param project the current project
@@ -392,19 +396,19 @@ public class TexlipseProperties {
         }
         return null;
     }
-    
+
     /**
      * Loads the project properties from a file.
-     * 
+     *
      * @param project current project
      */
     public static void loadProjectProperties(IProject project) {
-        
+
         IFile settingsFile = project.getFile(LATEX_PROJECT_SETTINGS_FILE);
         if (!settingsFile.exists()) {
             return;
         }
-        
+
         Properties prop = new Properties();
         try {
             prop.load(settingsFile.getContents());
@@ -415,7 +419,7 @@ public class TexlipseProperties {
             TexlipsePlugin.log("Loading project property file", e);
             return;
         }
-        
+
         setSessionProperty(project, SESSION_PROPERTIES_LOAD, Long.valueOf(System.currentTimeMillis()));
         setProjectProperty(project, MAINFILE_PROPERTY, prop.getProperty(MAINFILE_PROPERTY, ""));
         setProjectProperty(project, OUTPUTFILE_PROPERTY, prop.getProperty(OUTPUTFILE_PROPERTY, ""));
@@ -430,16 +434,16 @@ public class TexlipseProperties {
         setProjectProperty(project, LANGUAGE_PROPERTY, prop.getProperty(LANGUAGE_PROPERTY, ""));
         setProjectProperty(project, MAKEINDEX_STYLEFILE_PROPERTY, prop.getProperty(MAKEINDEX_STYLEFILE_PROPERTY, ""));
     }
-    
+
     /**
      * Saves the project properties to a file.
-     * 
+     *
      * @param project current project
      */
     public static void saveProjectProperties(IProject project) {
-        
+
         IFile settingsFile = project.getFile(LATEX_PROJECT_SETTINGS_FILE);
-        
+
         // check if we can write to the properties file
         if (settingsFile.isReadOnly()) {
             IWorkbench workbench = PlatformUI.getWorkbench();
@@ -449,15 +453,15 @@ public class TexlipseProperties {
                     // show an error message is the file is not writable
                     MessageDialog dialog = new MessageDialog(workbench.getActiveWorkbenchWindow().getShell(),
                             TexlipsePlugin.getResourceString("projectSettingsReadOnlyTitle"), null,
-                            TexlipsePlugin.getResourceString("projectSettingsReadOnly"), MessageDialog.ERROR, 
+                            TexlipsePlugin.getResourceString("projectSettingsReadOnly"), MessageDialog.ERROR,
                             new String[] { IDialogConstants.OK_LABEL }, 0);
                     dialog.open();
                 }});
             return;
         }
-        
+
         Properties prop = new Properties();
-        
+
         prop.setProperty(MAINFILE_PROPERTY, getProjectProperty(project, MAINFILE_PROPERTY));
         prop.setProperty(OUTPUTFILE_PROPERTY, getProjectProperty(project, OUTPUTFILE_PROPERTY));
         prop.setProperty(SOURCE_DIR_PROPERTY, getProjectProperty(project, SOURCE_DIR_PROPERTY));
@@ -470,22 +474,22 @@ public class TexlipseProperties {
         prop.setProperty(MARK_OUTPUT_DERIVED_PROPERTY, getProjectProperty(project, MARK_OUTPUT_DERIVED_PROPERTY));
         prop.setProperty(LANGUAGE_PROPERTY, getProjectProperty(project, LANGUAGE_PROPERTY));
         prop.setProperty(MAKEINDEX_STYLEFILE_PROPERTY, getProjectProperty(project, MAKEINDEX_STYLEFILE_PROPERTY));
-        
+
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         try {
             prop.store(baos, "TeXlipse project settings");
         } catch (IOException e) {}
-        
+
         NullProgressMonitor mon = new NullProgressMonitor();
         ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
         try {
-            
+
             if (settingsFile.exists()) {
                 settingsFile.setContents(bais, true, false, mon);
             } else {
                 settingsFile.create(bais, true, mon);
             }
-            
+
         } catch (CoreException e) {
             TexlipsePlugin.log("Saving project property file", e);
         }
@@ -493,29 +497,29 @@ public class TexlipseProperties {
 
     /**
      * Check if the project properties should be read from disk.
-     * 
+     *
      * @param project current project
      * @return true, if the project properties should be read from disk
      */
     public static boolean isProjectPropertiesFileChanged(IProject project) {
-        
+
         IResource settingsFile = project.findMember(LATEX_PROJECT_SETTINGS_FILE);
         if (settingsFile == null) {
             return false;
         }
-        
+
         Long lastLoadTime = (Long) getSessionProperty(project, SESSION_PROPERTIES_LOAD);
         if (lastLoadTime == null) {
             return true;
         }
-        
+
         long timeStamp = settingsFile.getLocalTimeStamp();
         return timeStamp > lastLoadTime.longValue();
     }
-    
+
     /**
      * Read a project property.
-     * 
+     *
      * @param project the current project
      * @param property the name of the property
      * @return the value of the named project property or null if the property is not found
@@ -532,7 +536,7 @@ public class TexlipseProperties {
 
     /**
      * Write a project property. This value will be stored to the project settings file on disk.
-     * 
+     *
      * @param project the current project
      * @param property the name of the property
      * @param value new value for the property
@@ -544,10 +548,10 @@ public class TexlipseProperties {
             // do nothing
         }
     }
-    
+
     /**
      * Read a session property.
-     * 
+     *
      * @param project the current project
      * @param property the name of the property
      * @return the value of session property or null if the property is not found
@@ -564,7 +568,7 @@ public class TexlipseProperties {
 
     /**
      * Write a session property. This value will be stored only in memory as long as Eclipse is still running.
-     * 
+     *
      * @param project the current project
      * @param property the name of the property
      * @param value new value for the session property
