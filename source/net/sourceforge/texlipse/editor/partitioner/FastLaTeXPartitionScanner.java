@@ -225,17 +225,24 @@ public class FastLaTeXPartitionScanner implements IPartitionTokenScanner {
                     return fTokens[COMMENT];
                 }
             }
-          // Trung TODO: temporary disable highlighting argument, optargument
-          // Need to add option in preference so user can switch.
-//        case '{':
-//            return scanBracket('{', '}', ARGS, fTokenOffset + 1);
-//        case '[':
-//            return scanBracket('[', ']', OPT_ARGS, fTokenOffset + 1);
+          // Trung TODO: temporary highglight only brackets of argument, optargument
+          // Need to add option in preference so user can switch to highlight
+          // all arguments, opt arguments
+        case '{':
+        case '}':
+            fTokenLength=1;
+            return fTokens[ARGS];
+        case '[':
+        case ']':
+            fTokenLength=1;
+            return fTokens[OPT_ARGS];
+
         default:
             offsetEnd = fTokenOffset+1;
             while (ch != '$' && ch != '\\' && ch != '%'
-                      // Trung TODO: check also this condition
+                   // Trung TODO: check also this condition
 //                    && ch != '{' && ch != '['
+                    && ch != '{' && ch != '}' && ch != '[' && ch != ']'
                     && ch != ICharacterScanner.EOF) {
                 ch = fScanner.read();
                 offsetEnd++;                 
