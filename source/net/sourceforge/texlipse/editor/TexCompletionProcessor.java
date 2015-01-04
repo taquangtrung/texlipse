@@ -456,6 +456,16 @@ public class TexCompletionProcessor implements IContentAssistProcessor {
 			int replacementLength, String prefix) {
 		List<TexCommandEntry> comEntries = refManager.getCompletionsCom(prefix,
 				TexCommandEntry.NORMAL_CONTEXT);
+
+		/*
+		 *  Trung TODO: maybe add an option in preference to choose whether
+		 *  user want to show completion proposals of math commands in
+		 *  normal context (not a math environment)
+		 */
+		List<TexCommandEntry> comMathEntries = refManager.getCompletionsCom(prefix,
+				TexCommandEntry.MATH_CONTEXT);
+		comEntries.addAll(comMathEntries);
+		
 		if (comEntries == null)
 			return null;
 
