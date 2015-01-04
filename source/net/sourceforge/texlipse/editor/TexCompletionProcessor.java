@@ -462,9 +462,7 @@ public class TexCompletionProcessor implements IContentAssistProcessor {
 		 *  user want to show completion proposals of math commands in
 		 *  normal context (not a math environment)
 		 */
-		List<TexCommandEntry> comMathEntries = refManager.getCompletionsCom(prefix,
-				TexCommandEntry.MATH_CONTEXT);
-		comEntries.addAll(comMathEntries);
+		comEntries.addAll(refManager.getCompletionsCom(prefix, TexCommandEntry.MATH_CONTEXT));
 		
 		if (comEntries == null)
 			return null;
