@@ -74,7 +74,7 @@ public class TexEditorActionContributor extends TextEditorActionContributor {
         }
         
         IMenuManager editMenu = menuManager.findMenuUsingPath(IWorkbenchActionConstants.M_WINDOW);
-        MenuManager manager = new MenuManager("Latex Symbols");
+        MenuManager manager = new MenuManager("Latex &Symbols");
         if (editMenu != null) {
             menuManager.insertBefore(IWorkbenchActionConstants.M_WINDOW, manager);
             MenuManager smallGreekMenu = new MenuManager("Greek lower case");
