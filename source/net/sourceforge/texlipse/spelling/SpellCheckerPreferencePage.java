@@ -76,6 +76,9 @@ public class SpellCheckerPreferencePage
         BooleanFieldEditor ignoreMixedCase = new BooleanFieldEditor(TexlipseProperties.SPELLCHECKER_IGNORE_MIXED_CASE, 
                 TexlipsePlugin.getResourceString("preferenceSpellIgnoreMixedCase") , group);
         addField (ignoreMixedCase);
+        BooleanFieldEditor ignoreUnderscore = new BooleanFieldEditor(TexlipseProperties.SPELLCHECKER_IGNORE_UNDERSCORE, 
+                TexlipsePlugin.getResourceString("preferenceSpellIgnoreUnderscore") , group);
+        addField (ignoreUnderscore);
 //        BooleanFieldEditor ignoreMath = new BooleanFieldEditor(TexlipseProperties.SPELLCHECKER_IGNORE_MATH, 
 //                TexlipsePlugin.getResourceString("preferenceSpellIgnoreMath") , group);
 //        addField(ignoreMath);

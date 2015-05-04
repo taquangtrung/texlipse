@@ -183,6 +183,7 @@ public class TexlipseProperties {
     public static final String SPELLCHECKER_IGNORE_COMMENTS = "spellcheckerIgnoreComments";
     public static final String SPELLCHECKER_IGNORE_MATH = "spellcheckerIgnoreMath";
     public static final String SPELLCHECKER_IGNORE_MIXED_CASE = "spellcheckerIgnoreMixedCase";
+    public static final String SPELLCHECKER_IGNORE_UNDERSCORE = "spellcheckerIgnoreUnderscore";
 
     /**
        * A named preference that controls whether bracket matching highlighting is turned on or off.

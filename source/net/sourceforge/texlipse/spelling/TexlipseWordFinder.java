@@ -12,6 +12,9 @@ package net.sourceforge.texlipse.spelling;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import net.sourceforge.texlipse.TexlipsePlugin;
+import net.sourceforge.texlipse.properties.TexlipseProperties;
+
 import com.swabunga.spell.event.AbstractWordFinder;
 import com.swabunga.spell.event.Word;
 import com.swabunga.spell.event.WordNotFoundException;
@@ -28,6 +31,11 @@ public class TexlipseWordFinder extends AbstractWordFinder {
     private final static Pattern MAND_ARG = Pattern.compile("\\A\\s*\\{[^\\}]+\\}");
     private final static Pattern OPT_MAND_ARG = Pattern.compile("\\A\\s*(\\[[^\\]]+\\])?\\s*\\{[^\\}]+\\}");
     
+    private boolean IGNORE_UNDERSCORE = 
+    		TexlipsePlugin.getDefault().getPreferenceStore().
+    			getBoolean(TexlipseProperties.SPELLCHECKER_IGNORE_UNDERSCORE);
+
+    
     private boolean IGNORE_COMMENTS = true;
     private boolean IGNORE_MATH = true;
     
@@ -39,8 +47,20 @@ public class TexlipseWordFinder extends AbstractWordFinder {
     public TexlipseWordFinder() {
         super();
     }
+    
+    
 
-    /**
+	protected boolean isUnderscore(int posn) {
+		if (posn == text.length() - 1)
+			return false;
+		
+		char curr = text.charAt(posn);
+		char next = text.charAt(posn + 1);
+		
+		return (curr == '\\') && (next == '_');
+	}
+
+	/**
      * This method scans the text from the end of the last word, and returns a
      * new Word object corresponding to the next word.
      *
@@ -71,7 +91,12 @@ public class TexlipseWordFinder extends AbstractWordFinder {
                 if (isWordChar(i)) {
                     i++;
                     continue;
-                } else {
+                }
+                else if (IGNORE_UNDERSCORE && isUnderscore(i)) {
+                    i+=2;
+                    continue;
+                }
+                else {
                     nextWord.setText(text.substring(nextWord.getStart(), i));
                     finished = true;
                     break;
@@ -111,7 +136,6 @@ public class TexlipseWordFinder extends AbstractWordFinder {
                 j = ignore(j, "\\begin", MAND_ARG);
                 j = ignore(j, "\\end", MAND_ARG);        
 
-                // Ignore commands.
                 j = ignore(j, '\\');
             }
             

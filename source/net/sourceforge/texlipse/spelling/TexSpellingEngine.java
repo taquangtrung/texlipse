@@ -268,6 +268,18 @@ public class TexSpellingEngine implements ISpellingEngine, SpellCheckListener {
         return false;
     }
     
+    /**
+     * Checks if the input string contains underscores
+     * @param word
+     * @return
+     */
+    public static boolean isUnderscore(String word) {
+        for (int i = 1; i < word.length(); i++) {
+            if (word.charAt(i) == '_') return true;
+        }
+        return false;
+    }
+    
     public void spellingError(SpellCheckEvent event) {
         String invWord = event.getInvalidWord();
         if (invWord.length() < 3) return;
@@ -276,6 +288,9 @@ public class TexSpellingEngine implements ISpellingEngine, SpellCheckListener {
         if (ignore.contains(invWord)) return;
         if (TexlipsePlugin.getDefault().getPreferenceStore().getBoolean(TexlipseProperties.SPELLCHECKER_IGNORE_MIXED_CASE)) {
             if (isMixedCase(invWord)) return;
+        }
+        if (TexlipsePlugin.getDefault().getPreferenceStore().getBoolean(TexlipseProperties.SPELLCHECKER_IGNORE_UNDERSCORE)) {
+            if (isUnderscore(invWord)) return;
         }
         
         errors.add(event);
