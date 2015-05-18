@@ -280,17 +280,30 @@ public class TexSpellingEngine implements ISpellingEngine, SpellCheckListener {
         return false;
     }
     
+    public static boolean isHyphened(String word) {
+        for (int i = 1; i < word.length(); i++) {
+            if (word.charAt(i) == '-') return true;
+        }
+        return false;
+    }
+    
     public void spellingError(SpellCheckEvent event) {
         String invWord = event.getInvalidWord();
         if (invWord.length() < 3) return;
         if (invWord.indexOf('_') > -1) return;
         if (invWord.indexOf('^') > -1) return;
         if (ignore.contains(invWord)) return;
-        if (TexlipsePlugin.getDefault().getPreferenceStore().getBoolean(TexlipseProperties.SPELLCHECKER_IGNORE_MIXED_CASE)) {
+        if (TexlipsePlugin.getDefault().getPreferenceStore()
+        		.getBoolean(TexlipseProperties.SPELLCHECKER_IGNORE_MIXED_CASE)) {
             if (isMixedCase(invWord)) return;
         }
-        if (TexlipsePlugin.getDefault().getPreferenceStore().getBoolean(TexlipseProperties.SPELLCHECKER_IGNORE_UNDERSCORE)) {
+        if (TexlipsePlugin.getDefault().getPreferenceStore()
+        		.getBoolean(TexlipseProperties.SPELLCHECKER_IGNORE_UNDERSCORE)) {
             if (isUnderscore(invWord)) return;
+        }
+        if (TexlipsePlugin.getDefault().getPreferenceStore()
+        		.getBoolean(TexlipseProperties.SPELLCHECKER_IGNORE_HYPHEN)) {
+            if (isHyphened(invWord)) return;
         }
         
         errors.add(event);

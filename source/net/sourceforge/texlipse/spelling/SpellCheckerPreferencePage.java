@@ -79,6 +79,9 @@ public class SpellCheckerPreferencePage
         BooleanFieldEditor ignoreUnderscore = new BooleanFieldEditor(TexlipseProperties.SPELLCHECKER_IGNORE_UNDERSCORE, 
                 TexlipsePlugin.getResourceString("preferenceSpellIgnoreUnderscore") , group);
         addField (ignoreUnderscore);
+        BooleanFieldEditor ignoreHyphen = new BooleanFieldEditor(TexlipseProperties.SPELLCHECKER_IGNORE_HYPHEN, 
+                TexlipsePlugin.getResourceString("preferenceSpellIgnoreHyphen") , group);
+        addField (ignoreHyphen);
 //        BooleanFieldEditor ignoreMath = new BooleanFieldEditor(TexlipseProperties.SPELLCHECKER_IGNORE_MATH, 
 //                TexlipsePlugin.getResourceString("preferenceSpellIgnoreMath") , group);
 //        addField(ignoreMath);

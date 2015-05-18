@@ -35,6 +35,9 @@ public class TexlipseWordFinder extends AbstractWordFinder {
     		TexlipsePlugin.getDefault().getPreferenceStore().
     			getBoolean(TexlipseProperties.SPELLCHECKER_IGNORE_UNDERSCORE);
 
+    private boolean IGNORE_HYPHEN = 
+    		TexlipsePlugin.getDefault().getPreferenceStore().
+    			getBoolean(TexlipseProperties.SPELLCHECKER_IGNORE_HYPHEN);
     
     private boolean IGNORE_COMMENTS = true;
     private boolean IGNORE_MATH = true;
@@ -59,6 +62,15 @@ public class TexlipseWordFinder extends AbstractWordFinder {
 		
 		return (curr == '\\') && (next == '_');
 	}
+
+	protected boolean isHyphen(int posn) {
+		if (posn == text.length() - 1)
+			return false;
+		
+		char curr = text.charAt(posn);
+		return (curr == '-');
+	}
+
 
 	/**
      * This method scans the text from the end of the last word, and returns a
@@ -94,6 +106,10 @@ public class TexlipseWordFinder extends AbstractWordFinder {
                 }
                 else if (IGNORE_UNDERSCORE && isUnderscore(i)) {
                     i+=2;
+                    continue;
+                }
+                else if (IGNORE_HYPHEN && isHyphen(i)) {
+                    i+=1;
                     continue;
                 }
                 else {
