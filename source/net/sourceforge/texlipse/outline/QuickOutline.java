@@ -11,7 +11,6 @@ import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.dialogs.PopupDialog;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IDocument;
-import org.eclipse.jface.text.IRegion;
 import org.eclipse.jface.viewers.AbstractTreeViewer;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ITreeContentProvider;
@@ -436,10 +435,8 @@ public class QuickOutline extends PopupDialog {
 		fFilterText.setFocus();
 	}
 	
-    /**
-     * Get the preferences.
-     * 
-     */
+	// TRUNG: this function is duplidated with other class
+	// TODO: revise later.
     private void getOutlinePreferences()  {
         filter.reset();
         
