@@ -224,6 +224,10 @@ public class TexOutlinePage extends ContentOutlinePage {
         }
     }
     
+    public TexOutlineInput getTexOutlineInput() {
+    	return input;
+    }
+    
     /**
      * Focuses the editor to the text of the selected item.
      * 

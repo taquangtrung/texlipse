@@ -51,6 +51,10 @@ public class TexOutlineTreeView extends ViewPart implements
     	outline = new TexOutlinePage(null);
     }
     
+    public TexOutlinePage getTexOutlinePage() {
+    	return outline;
+    }
+    
     
     /**
      * Creates the viewer. Registers the full outline at the document model.
@@ -80,6 +84,10 @@ public class TexOutlineTreeView extends ViewPart implements
     public void update(TexOutlineInput input) {
     	outline.update(input);
     }
+    
+//    public TexOutlineInput getTexOutlineInput() {
+//    	return ;
+//    }
     
     /**
      * Focuses the editor to the text of the selected item. Opens a new editor if

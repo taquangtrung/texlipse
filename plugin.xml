@@ -942,6 +942,15 @@ ${cursor}
                menubarPath="net.sourceforge.texlipse.menus.latex/latexGroup"
                style="push">
          </action>
+         <action
+               class="net.sourceforge.texlipse.actions.OpenQuickOutlineAction"
+               definitionId="net.sourceforge.texlipse.commands.quickOutline"
+               icon="icons/build_exec.gif"
+               id="net.sourceforge.texlipse.actions.quickOutline"
+               label="Quick Outline"
+               menubarPath="net.sourceforge.texlipse.menus.latex/latexGroup"
+               style="push">
+         </action>
       </editorContribution>
    </extension>
    <extension
@@ -1021,6 +1030,11 @@ ${cursor}
             categoryId="net.sourceforge.texlipse.latexEditingCategory"
             id="net.sourceforge.texlipse.commands.GotoMatchingBracket"
             name="Go to matching bracket"/>
+      <command
+            categoryId="net.sourceforge.texlipse.latexEditingCategory"
+            id="net.sourceforge.texlipse.commands.quickOutline"
+            name="Quick Outline">
+      </command>
    </extension>
    <!-- Keys: M1=Ctrl M2=Shift M3=Alt-->
    <extension
@@ -1079,7 +1093,13 @@ ${cursor}
             commandId="net.sourceforge.texlipse.commands.GotoMatchingBracket"
             contextId="net.sourceforge.texlipse.texEditorScope"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
-            sequence="M1+M2+P"/>            
+            sequence="M1+M2+P"/>
+      <key
+            commandId="net.sourceforge.texlipse.commands.quickOutline"
+            contextId="net.sourceforge.texlipse.texEditorScope"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M1+O">
+      </key>            
     </extension>
    <extension
          id="builderproblem"
