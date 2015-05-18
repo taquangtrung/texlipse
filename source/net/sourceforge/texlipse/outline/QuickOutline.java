@@ -362,6 +362,10 @@ public class QuickOutline extends PopupDialog {
 				String matchName = ((ILabelProvider) fTreeViewer.getLabelProvider()).getText(node);
 				String filterText = getFilterText().getText();
 				
+				// case-insensitive filtering 
+				matchName = matchName.toLowerCase();
+				filterText = filterText.toLowerCase();
+				
 				try {
 					// use regex when filterText start with "^" (regex is slow)
 					if (filterText.startsWith("^"))

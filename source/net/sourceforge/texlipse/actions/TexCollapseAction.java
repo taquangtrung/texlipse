@@ -67,7 +67,8 @@ public class TexCollapseAction implements IEditorActionDelegate {
             if (firstOffset == lastOffset) {
                 collapseDeepestMatching(model, firstOffset);
             } else {
-                collapseAllContained(model, firstOffset, lastOffset);
+//                collapseAllContained(model, firstOffset, lastOffset);
+                collapseAllIntersected(model, firstOffset, lastOffset);
             }
         }
     }
@@ -109,6 +110,25 @@ public class TexCollapseAction implements IEditorActionDelegate {
         for (Iterator iter = model.getAnnotationIterator(); iter.hasNext();) {
             TexProjectionAnnotation tpa = (TexProjectionAnnotation) iter.next();
             if (tpa.isBetween(startOffset, endOffset)) {
+                model.collapse(tpa);
+            }
+        }
+    }
+
+    
+    /**
+     * Collapses all annotations that are intersected in the interval
+     * defined by <code>startOffset</code> and <code>endOffset</code>.
+     * 
+     * @param model The annotation model to use
+     * @param startOffset The document offset of the start of the interval
+     * @param endOffset The document offset of the end of the interval
+     */
+    private void collapseAllIntersected(ProjectionAnnotationModel model,
+            int startOffset, int endOffset) {
+        for (Iterator iter = model.getAnnotationIterator(); iter.hasNext();) {
+            TexProjectionAnnotation tpa = (TexProjectionAnnotation) iter.next();
+            if (tpa.isIntersected(startOffset, endOffset)) {
                 model.collapse(tpa);
             }
         }

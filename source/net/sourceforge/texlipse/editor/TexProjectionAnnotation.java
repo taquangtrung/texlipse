@@ -106,7 +106,18 @@ public class TexProjectionAnnotation extends ProjectionAnnotation {
 	public boolean isBetween(int startOffset, int endOffset) {
 		Position pos = node.getPosition();
 		if (startOffset <= pos.offset
-				&& (pos.length + pos.offset) < endOffset)
+				&& (pos.length + pos.offset) <= endOffset + 1)
+			return true;
+		return false;
+	}
+
+
+	public boolean isIntersected(int startOffset, int endOffset) {
+		Position pos = node.getPosition();
+		int nodeStart = pos.offset;
+		int nodeEnd = pos.offset + pos.length - 1;
+		if (((startOffset <= nodeStart) && (nodeStart <= endOffset)) ||
+				((startOffset <= nodeEnd) && (nodeEnd <= endOffset)))
 			return true;
 		return false;
 	}
