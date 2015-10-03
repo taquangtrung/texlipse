@@ -142,7 +142,7 @@ public class TexlipseAnnotationUpdater implements ISelectionChangedListener {
                     final String refName = line.substring(r2.getOffset(), r2.getOffset() + r2.getLength());
                     //Create a job to update the annotations in the background
                     fUpdateJob = createMatchEnvironmentJob(document, model, offset, command, startRegion, refName);
-                    fUpdateJob.setPriority(Job.LONG);
+                    fUpdateJob.setPriority(Job.DECORATE);
                     fUpdateJob.setSystem(true);
                     fUpdateJob.schedule();
                 }
@@ -154,7 +154,7 @@ public class TexlipseAnnotationUpdater implements ISelectionChangedListener {
                     final String refName = line.substring(r2.getOffset(), r2.getOffset() + r2.getLength());
                     //Create a job to update the annotations in the background
                     fUpdateJob = createMatchReferenceJob(document, model, refName);
-                    fUpdateJob.setPriority(Job.LONG);
+                    fUpdateJob.setPriority(Job.DECORATE);
                     fUpdateJob.setSystem(true);
                     fUpdateJob.schedule();
                 }

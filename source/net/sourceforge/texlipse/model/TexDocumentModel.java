@@ -260,8 +260,8 @@ public class TexDocumentModel implements IDocumentListener {
         // initialize jobs
         parseJob = new ParseJob("Parsing");
         postParseJob = new PostParseJob("Updating");
-        parseJob.setPriority(Job.LONG); 
-        postParseJob.setPriority(Job.LONG); 
+        parseJob.setPriority(Job.DECORATE); 
+        postParseJob.setPriority(Job.DECORATE); 
         // get preferences
         this.parseDelay = TexlipsePlugin.getDefault().getPreferenceStore().getInt(TexlipseProperties.AUTO_PARSING_DELAY);
         this.autoParseEnabled = TexlipsePlugin.getDefault().getPreferenceStore().getBoolean(TexlipseProperties.AUTO_PARSING);
