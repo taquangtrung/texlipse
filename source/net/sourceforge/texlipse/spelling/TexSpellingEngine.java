@@ -166,15 +166,12 @@ public class TexSpellingEngine implements ISpellingEngine, SpellCheckListener {
             Reader r = new BufferedReader(new InputStreamReader(input, "UTF-8"));
             dict = new TexSpellDictionary(r);
             r.close();
-
-            // String customDictPath = TexlipsePlugin.getPreference(TexlipseProperties.SPELLCHECKER_CUSTOM_DICT_DIR);
-
-            // Trung: currently, set the customDictPath the same as the current project path
-            String customDictPath = TexlipsePlugin.getCurrentProject().getLocation().toOSString();
-            System.out.println(customDictPath);
-            if (customDictPath != null && !"".equals(customDictPath.trim())) {
-                dict.setUserDict(new File (customDictPath + File.separator + lang + "_user.dict"));
-            }
+            
+            String customDictPath = TexlipsePlugin.getPreference(TexlipseProperties.SPELLCHECKER_CUSTOM_DICT_DIR);
+            // if the customDictPath isn't set, then use the current project path
+            if ((customDictPath == null) || (customDictPath.trim().isEmpty()))
+                customDictPath = TexlipsePlugin.getCurrentProject().getLocation().toOSString();
+            dict.setUserDict(new File (customDictPath + File.separator + lang + "_user.dict"));
             spellCheck = new SpellChecker(dict);
             return spellCheck;
         } catch (IOException e) {
