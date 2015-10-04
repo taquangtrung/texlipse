@@ -144,9 +144,17 @@ public class TexSpellingEngine implements ISpellingEngine, SpellCheckListener {
     private static SpellChecker getSpellChecker(String lang) {
         //Return null, when no language is set
         if (lang == null) return null;
+
+        // if the customDictPath isn't set, then use the current project path
+        String customDictPath = TexlipsePlugin.getPreference(TexlipseProperties.SPELLCHECKER_CUSTOM_DICT_DIR);
+        if ((customDictPath == null) || (customDictPath.trim().isEmpty()))
+            customDictPath = TexlipsePlugin.getCurrentProject().getLocation().toOSString();
+        String customDictFilePath = customDictPath + File.separator + lang + "_user.dict";
+
+        // return the current spellChecker if the default dict and custom dict unchanged
+        if ((lang.equals(currentLang)) && (dict.getUserDictPath().equals(customDictFilePath))) 
+            return spellCheck;
         
-        if (lang.equals(currentLang)) return spellCheck;
-                
         //Get dictionary path from preferences and check if it exists
         String dictPathSt = TexlipsePlugin.getPreference(TexlipseProperties.SPELLCHECKER_DICT_DIR);
         if (dictPathSt == null || "".equals(dictPathSt.trim())) return null;
@@ -160,18 +168,13 @@ public class TexSpellingEngine implements ISpellingEngine, SpellCheckListener {
         spellCheck = null;
         dict = null;
         currentLang = lang;
-
+    	
         try {
             FileInputStream input = new FileInputStream(f);
             Reader r = new BufferedReader(new InputStreamReader(input, "UTF-8"));
             dict = new TexSpellDictionary(r);
             r.close();
-            
-            String customDictPath = TexlipsePlugin.getPreference(TexlipseProperties.SPELLCHECKER_CUSTOM_DICT_DIR);
-            // if the customDictPath isn't set, then use the current project path
-            if ((customDictPath == null) || (customDictPath.trim().isEmpty()))
-                customDictPath = TexlipsePlugin.getCurrentProject().getLocation().toOSString();
-            dict.setUserDict(new File (customDictPath + File.separator + lang + "_user.dict"));
+            dict.setUserDict(customDictFilePath);
             spellCheck = new SpellChecker(dict);
             return spellCheck;
         } catch (IOException e) {

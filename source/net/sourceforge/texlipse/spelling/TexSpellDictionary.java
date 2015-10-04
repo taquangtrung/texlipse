@@ -42,6 +42,7 @@ public class TexSpellDictionary extends SpellDictionaryASpell {
      * User dictionary
      */
     private File dictFile = null;
+    private String dictFilePath = null;
 
 
     /**
@@ -92,11 +93,30 @@ public class TexSpellDictionary extends SpellDictionaryASpell {
      */
     public void setUserDict(File userDict) {
         dictFile = userDict;
+        dictFilePath = userDict.getAbsolutePath();
         try {
             addDictionary(userDict);
         } catch (IOException e) {
             //Do nothing
         }
+    }
+
+    /**
+     * Set the user dictionary file
+     * @param userDict
+     */
+    public void setUserDict(String userDictPath) {
+        try {
+            dictFile = new File (userDictPath);
+            dictFilePath = userDictPath;
+            addDictionary(dictFile);
+        } catch (IOException e) {
+            //Do nothing
+        }
+    }
+
+    public String getUserDictPath() {
+        return dictFilePath;
     }
 
     /**
