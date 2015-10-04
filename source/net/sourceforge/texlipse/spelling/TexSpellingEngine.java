@@ -33,6 +33,7 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.IRegion;
@@ -40,6 +41,7 @@ import org.eclipse.jface.text.contentassist.CompletionProposal;
 import org.eclipse.jface.text.contentassist.ICompletionProposal;
 import org.eclipse.jface.text.quickassist.IQuickAssistInvocationContext;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.texteditor.spelling.ISpellingEngine;
 import org.eclipse.ui.texteditor.spelling.ISpellingProblemCollector;
 import org.eclipse.ui.texteditor.spelling.SpellingContext;
@@ -165,7 +167,11 @@ public class TexSpellingEngine implements ISpellingEngine, SpellCheckListener {
             dict = new TexSpellDictionary(r);
             r.close();
 
-            String customDictPath = TexlipsePlugin.getPreference(TexlipseProperties.SPELLCHECKER_CUSTOM_DICT_DIR);
+            // String customDictPath = TexlipsePlugin.getPreference(TexlipseProperties.SPELLCHECKER_CUSTOM_DICT_DIR);
+
+            // Trung: currently, set the customDictPath the same as the current project path
+            String customDictPath = TexlipsePlugin.getCurrentProject().getLocation().toOSString();
+            System.out.println(customDictPath);
             if (customDictPath != null && !"".equals(customDictPath.trim())) {
                 dict.setUserDict(new File (customDictPath + File.separator + lang + "_user.dict"));
             }
